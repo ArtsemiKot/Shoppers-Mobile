@@ -1,11 +1,13 @@
-import { Link } from 'expo-router';
-import { Text, View,  StyleSheet, Image } from 'react-native';
+import Shop from '../assets/images/Shop';
+import { useRouter } from 'expo-router';
+import { Text, View,  StyleSheet } from 'react-native';
 
 export default function Index() {
+  const router = useRouter()
   return (
     <View style={styles.container}>
-      <Link href="/login" style={styles.text}><Text style={styles.text}>WELCOME TO SHOPPERS</Text></Link>
-      <Image style={styles.img} source={require('../assets/images/pict-welcom.png')}></Image>
+      <Text style={styles.text}>WELCOME TO SHOPPERS</Text>
+      <Shop onPress = {()=>router.replace('/login')} style = {styles.img_shop}></Shop>
     </View>
   );
 }
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap:30,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffd33d',
     alignItems: 'center',
     justifyContent:'center',
   },
@@ -26,9 +28,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'none',
     color: 'black',
   },
-  img:{ 
-    width:270,
-    height:440,
+  img_shop:{ 
+    left:'5%'
   }
 });
  

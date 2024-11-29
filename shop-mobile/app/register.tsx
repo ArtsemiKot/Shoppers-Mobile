@@ -1,13 +1,34 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 export default function Register() {
+    const [register, setRegister] = useState({ name: '', password: '',  reapetpassword: ''})
+    const changeRegister = ((value: any, tag: any) => {
+        setRegister({ ...register, [tag]: value })
+    })
+    const router = useRouter()
+
+    const registration = () => {
+        try {
+            if (!register.name || !register.password || !register.reapetpassword) throw new Error('Заполните все поля')
+            if (register.password.length < 8) throw new Error('Пароль менее 8 символов. Повторите!')
+            if (register.reapetpassword != register.password) throw new Error('Пароль не совпадает. Повторите!')
+            router.push('/home')
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.textHeader}>Welcome!{'\n'}<Text style={styles.text}>Create a new account</Text></Text>
+            <View>
+                <Text style={styles.textHeader}>Welcome!</Text>
+                <Text style={styles.text}>Create a new account</Text>
+            </View>
             <View style={styles.wrapperLog}>
                 <Text style={styles.textForm}>Name</Text>
-                <TextInput style={{
+                <TextInput onChangeText={(value) => changeRegister(value, 'name')} style={{
                     borderWidth: 2,
                     borderRadius: 40,
                     borderColor: '#CECECE',
@@ -16,7 +37,7 @@ export default function Register() {
                     padding: 10,
                 }}></TextInput>
                 <Text style={styles.textForm}>Email</Text>
-                <TextInput style={{
+                <TextInput onChangeText={(value) => changeRegister(value, 'password')}  style={{
                     borderWidth: 2,
                     borderRadius: 40,
                     borderColor: '#CECECE',
@@ -25,7 +46,7 @@ export default function Register() {
                     padding: 10,
                 }}></TextInput>
                 <Text style={styles.textForm}>Password</Text>
-                <TextInput style={{
+                <TextInput onChangeText={(value) => changeRegister(value, 'reapetpassword')}  style={{
                     borderWidth: 2,
                     borderRadius: 40,
                     borderColor: '#CECECE',
@@ -33,7 +54,7 @@ export default function Register() {
                     height: 50,
                     padding: 10,
                 }}></TextInput>
-                <TouchableOpacity style={{
+                <TouchableOpacity onPress={registration} style={{
                     borderWidth: 2,
                     borderRadius: 40,
                     borderColor: 'rgba(249, 239, 5, 1)',
@@ -56,20 +77,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textHeader: {
-        fontSize: 24,
-        fontFamily: 'Iner',
-        fontWeight: 400,
+        fontSize: 28,
+        fontFamily: 'Inter',
+        fontWeight: 800,
         color: 'black',
         textAlign: 'center',
     },
     text: {
         fontSize: 12,
-        fontFamily: 'Iner',
+        fontFamily: 'Inter',
         fontWeight: 300,
         color: 'black',
+        textAlign: 'center',
     },
     wrapperLog: {
-        flex: 0,
         padding: 36,
         gap: 15,
         borderWidth: 2,
@@ -79,7 +100,7 @@ const styles = StyleSheet.create({
     },
     textForm: {
         fontSize: 14,
-        fontFamily: 'Iner',
+        fontFamily: 'Inter',
         fontWeight: 700,
         color: 'black',
         paddingLeft: 10,
@@ -87,7 +108,7 @@ const styles = StyleSheet.create({
     textEnd: {
         textAlign: 'center',
         fontSize: 14,
-        fontFamily: 'Iner',
+        fontFamily: 'Inter',
         fontWeight: 300,
         color: 'black',
     }
