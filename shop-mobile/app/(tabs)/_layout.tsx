@@ -5,7 +5,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 export default function TabLayout() {
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: '#ffd33d', headerShown: false
+      tabBarActiveTintColor: 'rgba(249, 239, 5, 1)', headerShown: false
     }}>
       <Tabs.Screen name="home" options={{
         title: 'Home', tabBarIcon: ({ color }) => (
